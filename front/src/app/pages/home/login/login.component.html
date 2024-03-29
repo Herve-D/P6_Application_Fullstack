@@ -1,0 +1,20 @@
+<div>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Se connecter</mat-card-title>
+        </mat-card-header>
+        <form [formGroup]="form">
+            <mat-card-content class="formGroup">
+                <label for="email">E-mail ou nom d'utilisateur</label>
+                <mat-form-field appearance="outline">
+                    <input matInput id="email" formControlName="email">
+                </mat-form-field>
+                <label for="password">Mot de passe</label>
+                <mat-form-field appearance="outline">
+                    <input matInput id="password" formControlName="password">
+                </mat-form-field>
+            </mat-card-content>
+            <button mat-raised-button color="primary" (click)="submit()">Se connecter</button>
+        </form>
+    </mat-card>
+</div>
