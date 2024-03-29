@@ -9,7 +9,8 @@ CREATE TABLE `USERS` (
 
 CREATE TABLE `TOPICS` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
-  `name` varchar(255)
+  `name` varchar(255),
+  `content` varchar(2000)
 );
 
 CREATE TABLE `SUBSCRIPTIONS` (
