@@ -1,1 +1,15 @@
-<router-outlet></router-outlet>
+<mat-toolbar *ngIf="!isHome()">
+    <div>
+        <div>
+            <img src="/assets/logo_p6.png" alt="MDD" width="100">
+        </div>
+        <div *ngIf="!isAuth()">
+            <a mat-button routerLink="/post" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Articles</a>
+            <a mat-button routerLink="/topic" routerLinkActive="active">Thèmes</a>
+            <a mat-button routerLink="/profile" routerLinkActive="active"><mat-icon>account_circle</mat-icon></a>
+        </div>
+    </div>
+</mat-toolbar>
+<div>
+    <router-outlet></router-outlet>
+</div>
