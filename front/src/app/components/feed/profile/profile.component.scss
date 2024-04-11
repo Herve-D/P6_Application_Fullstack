@@ -1,0 +1,18 @@
+h2 {
+    text-align: center;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+}
+
+.field {
+    border-color: blueviolet;
+}

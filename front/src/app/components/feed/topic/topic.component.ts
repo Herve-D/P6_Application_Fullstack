@@ -8,7 +8,7 @@ import { FeedService } from 'src/app/services/feed.service';
 })
 export class TopicComponent implements OnInit {
 
-    public topics$ = this.feedService.all();
+    public topics$ = this.feedService.getTopics();
 
     constructor(private feedService: FeedService) { }
 
