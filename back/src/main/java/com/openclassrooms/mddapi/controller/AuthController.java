@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.openclassrooms.mddapi.model.AuthResponse;
+import com.openclassrooms.mddapi.dto.AuthResponse;
 import com.openclassrooms.mddapi.model.Login;
 import com.openclassrooms.mddapi.model.Register;
 import com.openclassrooms.mddapi.security.JwtService;

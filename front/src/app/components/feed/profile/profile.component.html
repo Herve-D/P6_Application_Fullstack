@@ -1,1 +1,35 @@
-<h1>Yeahhhhh</h1>
+<div class="profile">
+    <h2> Profil utilisateur</h2>
+    <form *ngIf="userForm" [formGroup]="userForm" class="formGroup" (ngSubmit)="submit(user)">
+        <mat-form-field appearance="outline">
+            <input matInput formControlName="name" class="field">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <input matInput formControlName="email" class="field">
+        </mat-form-field>
+        <button mat-raised-button type="submit">Sauvegarder</button>
+    </form>
+    <span (click)="logout()">Se déconnecter</span>
+</div>
+<hr>
+<div class="profile">
+    <div>
+        <h2>Abonnements</h2>
+        <div *ngIf="(subscriptions$ | async)?.length === 0; else subscriptions">
+            <p>Aucun abonnement trouvé actuellement.</p>
+        </div>
+        <ng-template #subscriptions>
+            <mat-card *ngFor="let subscription of (subscriptions$ | async)">
+                <mat-card-header>
+                    <mat-card-title>{{ subscription.name }}</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <p>
+                        {{ subscription.content }}
+                    </p>
+                </mat-card-content>
+                <button mat-raised-button>Se désabonner</button>
+            </mat-card>
+        </ng-template>
+    </div>
+</div>

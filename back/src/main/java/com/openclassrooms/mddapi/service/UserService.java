@@ -33,8 +33,9 @@ public class UserService {
 		return toDto(userRepository.findById(id).orElse(null));
 	}
 
-	public void saveUser(MddUser user) {
-		userRepository.save(user);
+	public void updateUser(Long id, MddUserDto user) {
+		user.setId(id);
+		this.userRepository.save(toEntity(user));
 	}
 
 	public MddUserDto getCurrentUser() {
@@ -42,7 +43,7 @@ public class UserService {
 		if (authentication == null || !authentication.isAuthenticated()) {
 			return null;
 		}
-		Optional<MddUser> userOptional = userRepository.findByEmail(authentication.getName());
+		Optional<MddUser> userOptional = this.userRepository.findByEmail(authentication.getName());
 		if (userOptional.isPresent()) {
 			return toDto(userOptional.get());
 		}
