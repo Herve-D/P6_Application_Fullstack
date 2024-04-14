@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { Topic } from "../models/topic.interface";
 import { Post } from "../models/post.interface";
 import { User } from "../models/user.interface";
+import { PostRequest } from "../models/postRequest.interface";
 
 @Injectable({
     providedIn: 'root'
@@ -14,16 +15,20 @@ export class FeedService {
 
     constructor(private httpClient: HttpClient) { }
 
+    public createPost(post: PostRequest) {
+        return this.httpClient.post(`${this.pathService}/post`, post);
+    }
+
+    public getPosts(): Observable<Post[]> {
+        return this.httpClient.get<Post[]>(`${this.pathService}/post`);
+    }
+
     public getTopics(): Observable<Topic[]> {
         return this.httpClient.get<Topic[]>(`${this.pathService}/topic`);
     }
 
     public getSubscriptions(id: string): Observable<Topic[]> {
         return this.httpClient.get<Topic[]>(`${this.pathService}/user/${id}/topics`);
-    }
-
-    public getPosts(): Observable<Post[]> {
-        return this.httpClient.get<Post[]>(`${this.pathService}/post`);
     }
 
     public updateUser(id: string, user: User) {
