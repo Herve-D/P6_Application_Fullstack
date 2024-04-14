@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthResponse } from 'src/app/models/authResponse.interface';
@@ -34,7 +34,7 @@ export class RegisterComponent {
                 localStorage.setItem('token', response.token);
                 this.authService.me().subscribe((user: User) => {
                     this.sessionService.logIn(user);
-                    this.router.navigate(['/post'])
+                    this.router.navigate(['/post-list'])
                 });
             },
             error => this.onError = true

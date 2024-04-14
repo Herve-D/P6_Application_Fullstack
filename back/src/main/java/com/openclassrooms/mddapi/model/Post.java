@@ -13,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -29,6 +30,14 @@ public class Post {
 	private String content;
 	@CreationTimestamp
 	private Date created_at;
+
+	@ManyToOne
+	@JoinColumn(name = "user_id", referencedColumnName = "id")
+	private MddUser user;
+
+	@ManyToOne
+	@JoinColumn(name = "topic_id", referencedColumnName = "id")
+	private Topic topic;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	@JoinColumn(name = "post_id")
