@@ -16,6 +16,8 @@ public class PostDto {
 	private String title;
 	private String content;
 	private Date created_at;
+	private MddUserDto user;
+	private TopicDto topic;
 	private List<CommentDto> comments;
 
 }

@@ -27,6 +27,10 @@ public class TopicService {
 	private Topic toEntity(TopicDto topicDto) {
 		return modelMapper.map(topicDto, Topic.class);
 	}
+	
+	public TopicDto getTopicById(Long id) {
+		return toDto(this.topicRepository.findById(id).orElse(null));
+	}
 
 	public List<TopicDto> getTopics() {
 		return topicRepository.findAll().stream()

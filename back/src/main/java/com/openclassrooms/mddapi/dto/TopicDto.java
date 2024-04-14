@@ -15,6 +15,5 @@ public class TopicDto {
 	private String name;
 	private String content;
 	private List<PostDto> posts;
-	private List<MddUserDto> users;
 
 }
