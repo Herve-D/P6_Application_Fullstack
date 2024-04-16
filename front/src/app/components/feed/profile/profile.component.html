@@ -28,7 +28,7 @@
                         {{ subscription.content }}
                     </p>
                 </mat-card-content>
-                <button mat-raised-button>Se désabonner</button>
+                <button mat-raised-button (click)="unSubscribe(subscription.id)">Se désabonner</button>
             </mat-card>
         </ng-template>
     </div>
