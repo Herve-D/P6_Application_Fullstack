@@ -32,7 +32,7 @@ export class ProfileComponent implements OnInit {
         this.authService.me().subscribe((user: User) => {
             this.user = user;
             this.initForm(user);
-            this.subscriptions$ = this.feedService.getSubscriptions(user.id.toString());
+            this.fetchSubscriptions();
         });
     }
 
@@ -41,6 +41,10 @@ export class ProfileComponent implements OnInit {
             name: [user.name],
             email: [user.email]
         });
+    }
+
+    private fetchSubscriptions(): void {
+        this.subscriptions$ = this.feedService.getSubscriptions(this.user.id.toString());
     }
 
     public submit(user: User): void {
@@ -53,6 +57,13 @@ export class ProfileComponent implements OnInit {
             this.snackInfo('Mise à jour effectuée !')
         },
             error => this.onError = true);
+    }
+
+    public unSubscribe(id: number): void {
+        this.feedService.unSubscribe(id.toString(), this.user.id.toString()).subscribe(() => {
+            this.fetchSubscriptions();
+            this.snackInfo('Abonnement supprimé !')
+        });
     }
 
     private snackInfo(message: string): void {

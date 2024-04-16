@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Observable } from 'rxjs';
+import { Topic } from 'src/app/models/topic.interface';
+import { User } from 'src/app/models/user.interface';
+import { AuthService } from 'src/app/services/auth.service';
 import { FeedService } from 'src/app/services/feed.service';
 
 @Component({
@@ -8,10 +13,37 @@ import { FeedService } from 'src/app/services/feed.service';
 })
 export class TopicComponent implements OnInit {
 
-    public topics$ = this.feedService.getTopics();
+    public topics$!: Observable<Topic[]>;
+    private user!: User;
 
-    constructor(private feedService: FeedService) { }
+    constructor(private feedService: FeedService,
+        private authService: AuthService,
+        private matSnack: MatSnackBar,) { }
 
-    ngOnInit(): void { }
+    ngOnInit(): void {
+        this.topics$ = this.feedService.getTopics();
+        this.fetchUser();
+    }
+
+    private fetchUser(): void {
+        this.authService.me().subscribe((user: User) => {
+            this.user = user;
+        })
+    }
+
+    public isSubscribed(id: number): boolean {
+        return this.user.topics.some(topic => topic.id === id);
+    }
+
+    public subscribe(id: number): void {
+        this.feedService.subscribe(id.toString(), this.user.id.toString()).subscribe(() => {
+            this.fetchUser();
+            this.snackInfo('Abonnement ajouté !')
+        });
+    }
+
+    private snackInfo(message: string): void {
+        this.matSnack.open(message, 'Close', { duration: 3000 });
+    }
 
 }

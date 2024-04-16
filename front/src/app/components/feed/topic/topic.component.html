@@ -8,6 +8,8 @@
                 {{ topic.content }}
             </p>
         </mat-card-content>
-        <button mat-raised-button>S'abonner</button>
+        <button mat-raised-button (click)="subscribe(topic.id)" [disabled]="isSubscribed(topic.id)">
+            {{ isSubscribed(topic.id) ? 'Déjà abonné' : 'S\'abonner' }}
+        </button>
     </mat-card>
 </div>

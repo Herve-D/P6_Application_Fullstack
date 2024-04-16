@@ -35,4 +35,12 @@ export class FeedService {
         return this.httpClient.put(`${this.pathService}/user/${id}`, user);
     }
 
+    public subscribe(id: string, userId: string) {
+        return this.httpClient.post(`${this.pathService}/topic/${id}/subscribe/${userId}`, null);
+    }
+
+    public unSubscribe(id: string, userId: string) {
+        return this.httpClient.delete(`${this.pathService}/topic/${id}/subscribe/${userId}`);
+    }
+
 }
