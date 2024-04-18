@@ -22,20 +22,20 @@ public class UserService {
 	private ModelMapper modelMapper;
 
 	private MddUserDto toDto(MddUser user) {
-		return modelMapper.map(user, MddUserDto.class);
+		return this.modelMapper.map(user, MddUserDto.class);
 	}
 
 	private MddUser toEntity(MddUserDto userDto) {
-		return modelMapper.map(userDto, MddUser.class);
+		return this.modelMapper.map(userDto, MddUser.class);
 	}
 
 	public MddUserDto getUserById(Long id) {
-		return toDto(userRepository.findById(id).orElse(null));
+		return this.toDto(this.userRepository.findById(id).orElse(null));
 	}
 
 	public void updateUser(Long id, MddUserDto user) {
 		user.setId(id);
-		this.userRepository.save(toEntity(user));
+		this.userRepository.save(this.toEntity(user));
 	}
 
 	public MddUserDto getCurrentUser() {
@@ -45,7 +45,7 @@ public class UserService {
 		}
 		Optional<MddUser> userOptional = this.userRepository.findByEmail(authentication.getName());
 		if (userOptional.isPresent()) {
-			return toDto(userOptional.get());
+			return this.toDto(userOptional.get());
 		}
 		return null;
 	}

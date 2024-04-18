@@ -30,11 +30,11 @@ public class PostService {
 	private ModelMapper modelMapper;
 
 	private PostDto toDto(Post post) {
-		return modelMapper.map(post, PostDto.class);
+		return this.modelMapper.map(post, PostDto.class);
 	}
 
 	private Post toEntity(PostDto postDto) {
-		return modelMapper.map(postDto, Post.class);
+		return this.modelMapper.map(postDto, Post.class);
 	}
 
 	public void createPost(PostRequest postRequest) {
@@ -50,11 +50,16 @@ public class PostService {
 		this.postRepository.save(toEntity(postDto));
 	}
 
+	public void updatePost(PostDto postDto) {
+		this.postRepository.save(this.toEntity(postDto));
+	}
+
+	public PostDto getPostById(Long id) {
+		return this.toDto(this.postRepository.findById(id).orElse(null));
+	}
+
 	public List<PostDto> getPosts() {
-		return postRepository.findAll()
-				.stream()
-				.map(this::toDto)
-				.collect(Collectors.toList());
+		return this.postRepository.findAll().stream().map(this::toDto).collect(Collectors.toList());
 	}
 
 }

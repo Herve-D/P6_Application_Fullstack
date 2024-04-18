@@ -1,0 +1,48 @@
+<div>
+    <mat-card *ngIf="post">
+        <mat-card-header>
+            <button mat-icon-button (click)="back()">
+                <mat-icon>arrow_back</mat-icon>
+            </button>
+            <mat-card-title>{{ post.title }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-subtitle>
+            <span>{{ post.created_at }}</span>
+            <span>{{ post.user.name }}</span>
+            <span>{{ post.topic.name }}</span>
+        </mat-card-subtitle>
+        <mat-card-content>
+            {{ post.content }}
+        </mat-card-content>
+    </mat-card>
+
+    <hr>
+
+    <p>Commentaires</p>
+    <div *ngIf="post?.comments?.length === 0; else comments">
+        <p>Aucun commentaire</p>
+    </div>
+    <ng-template #comments>
+        <div *ngFor="let comment of post?.comments">
+            <span>{{ comment.user.name }}</span>
+            <!-- <mat-card> -->
+            <!-- <mat-card-content> -->
+            <span>
+                {{ comment.content }}
+            </span>
+            <!-- </mat-card-content> -->
+            <!-- </mat-card> -->
+        </div>
+    </ng-template>
+
+    <form *ngIf="commentForm" [formGroup]="commentForm" (ngSubmit)="submit()">
+        <span>
+            <mat-form-field appearance="outline">
+                <input matInput formControlName="content" placeholder="Écrivez ici votre commentaire">
+            </mat-form-field>
+            <button mat-icon-button type="submit" [disabled]="commentForm.invalid">
+                <mat-icon>send</mat-icon>
+            </button>
+        </span>
+    </form>
+</div>
