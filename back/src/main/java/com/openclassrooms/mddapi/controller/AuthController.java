@@ -27,6 +27,12 @@ public class AuthController {
 	@Autowired
 	private JwtService jwtService;
 
+	/**
+	 * Register a new user.
+	 * 
+	 * @param register - The user object to be registered.
+	 * @return A response containing the registered user and access token.
+	 */
 	@PostMapping("/register")
 	public ResponseEntity<?> register(@RequestBody Register register) {
 		try {
@@ -42,6 +48,12 @@ public class AuthController {
 		}
 	}
 
+	/**
+	 * User login.
+	 * 
+	 * @param login - The login object containing user credentials.
+	 * @return A response containing the authentication response.
+	 */
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody Login login) {
 		try {

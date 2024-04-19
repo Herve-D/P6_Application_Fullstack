@@ -25,6 +25,11 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	/**
+	 * Get the information of the current user logged in.
+	 * 
+	 * @return An User object.
+	 */
 	@GetMapping("/me")
 	public ResponseEntity<MddUserDto> getCurrentUser() {
 		try {
@@ -43,6 +48,12 @@ public class UserController {
 		}
 	}
 
+	/**
+	 * Get a user using an id.
+	 * 
+	 * @param id - The id of the user.
+	 * @return A filled user object.
+	 */
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getUserById(@PathVariable("id") String id) {
 		try {
@@ -57,6 +68,13 @@ public class UserController {
 		}
 	}
 
+	/**
+	 * Update an existing User.
+	 * 
+	 * @param id   - The id of the user to update.
+	 * @param user - The new user object to update with.
+	 * @return An updated user.
+	 */
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateUser(@PathVariable("id") String id, @RequestBody MddUserDto user) {
 		try {
@@ -69,6 +87,12 @@ public class UserController {
 		}
 	}
 
+	/**
+	 * Get all subscribed topics of a given user.
+	 * 
+	 * @param id - The id of the user.
+	 * @return A list object of topics which the user is subscribed to.
+	 */
 	@GetMapping("/{id}/topics")
 	public ResponseEntity<?> getSubscriptions(@PathVariable("id") String id) {
 		try {
