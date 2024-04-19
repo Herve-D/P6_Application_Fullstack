@@ -60,7 +60,7 @@ public class AuthService {
 			log.info("Token is : {}", token);
 			return token;
 		} catch (AuthenticationException e) {
-		System.out.println(	e.getMessage());
+			log.error(e.getMessage());
 			throw new BadCredentialsException("Invalid credentials");
 		}
 	}

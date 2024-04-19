@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.openclassrooms.mddapi.dto.MddUserDto;
+import com.openclassrooms.mddapi.model.MddUser;
 import com.openclassrooms.mddapi.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -43,19 +44,26 @@ public class UserController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<MddUserDto> getUserById(@PathVariable("id") String id) {
+	public ResponseEntity<?> getUserById(@PathVariable("id") String id) {
 		try {
-			return ResponseEntity.ok(this.userService.getUserById(Long.parseLong(id)));
+			log.info("Fetch user : {}", id);
+			MddUserDto userDto = this.userService.getUserById(Long.parseLong(id));
+			if (userDto == null) {
+				return ResponseEntity.notFound().build();
+			}
+			return ResponseEntity.ok().body(userDto);
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+			return ResponseEntity.badRequest().build();
 		}
 	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<?> updateUser(@PathVariable("id") String id, @RequestBody MddUserDto user) {
 		try {
-			this.userService.updateUser(Long.parseLong(id), user);
-			return ResponseEntity.ok().build();
+			log.info("Updating user : {}", id);
+			MddUser updatedUser = this.userService.updateUser(Long.parseLong(id), user);
+			log.info("User updated : {}", updatedUser);
+			return ResponseEntity.ok().body(this.userService.toDto(updatedUser));
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
