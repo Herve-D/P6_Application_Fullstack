@@ -4,8 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { CommentRequest } from 'src/app/models/commentRequest.interface';
 import { Post } from 'src/app/models/post.interface';
 import { User } from 'src/app/models/user.interface';
-import { AuthService } from 'src/app/services/auth.service';
-import { FeedService } from 'src/app/services/feed.service';
+import { AuthService } from 'src/app/components/auth/services/auth.service';
+import { PostService } from 'src/app/components/feed/post/services/post.service';
 
 @Component({
     selector: 'app-post-detail',
@@ -19,7 +19,7 @@ export class PostDetailComponent implements OnInit {
     public commentForm!: FormGroup;
 
     constructor(private route: ActivatedRoute,
-        private feedService: FeedService,
+        private feedService: PostService,
         private authService: AuthService,
         private fb: FormBuilder) {
         this.postId = this.route.snapshot.paramMap.get('id')!;
@@ -46,6 +46,13 @@ export class PostDetailComponent implements OnInit {
         });
     }
 
+    private clearForm(): void {
+        this.commentForm.reset();
+        Object.keys(this.commentForm.controls).forEach((key) => {
+            this.commentForm.controls[key].setErrors(null);
+        })
+    }
+
     public submit(): void {
         if (this.commentForm.valid) {
             this.authService.me().subscribe((user: User) => {
@@ -55,7 +62,7 @@ export class PostDetailComponent implements OnInit {
                 this.feedService.createCommment(comment).subscribe(
                     () => {
                         this.fetchPost();
-                        this.commentForm.reset();
+                        this.clearForm();
                     }
                 )
             })

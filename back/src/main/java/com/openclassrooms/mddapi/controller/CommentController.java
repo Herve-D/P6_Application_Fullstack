@@ -21,6 +21,13 @@ public class CommentController {
 	@Autowired
 	private CommentService commentService;
 
+	/**
+	 * Create - Add a new comment to a post.
+	 * 
+	 * @param commentRequest - An object containing the data of the comment to be
+	 *                       saved.
+	 * @return The saved comment.
+	 */
 	@PostMapping
 	public ResponseEntity<?> createComment(@RequestBody CommentRequest commentRequest) {
 		try {
@@ -28,6 +35,7 @@ public class CommentController {
 			this.commentService.createComment(commentRequest);
 			return ResponseEntity.ok().build();
 		} catch (Exception e) {
+			log.error("Exception is : {}", e);
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}

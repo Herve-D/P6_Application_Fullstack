@@ -3,8 +3,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { Topic } from 'src/app/models/topic.interface';
 import { User } from 'src/app/models/user.interface';
-import { AuthService } from 'src/app/services/auth.service';
-import { FeedService } from 'src/app/services/feed.service';
+import { AuthService } from 'src/app/components/auth/services/auth.service';
+import { TopicService } from './services/topic.service';
 
 @Component({
     selector: 'app-topic',
@@ -16,12 +16,12 @@ export class TopicComponent implements OnInit {
     public topics$!: Observable<Topic[]>;
     private user!: User;
 
-    constructor(private feedService: FeedService,
+    constructor(private topicService: TopicService,
         private authService: AuthService,
         private matSnack: MatSnackBar,) { }
 
     ngOnInit(): void {
-        this.topics$ = this.feedService.getTopics();
+        this.topics$ = this.topicService.getTopics();
         this.fetchUser();
     }
 
@@ -36,7 +36,7 @@ export class TopicComponent implements OnInit {
     }
 
     public subscribe(id: number): void {
-        this.feedService.subscribe(id.toString(), this.user.id.toString()).subscribe(() => {
+        this.topicService.subscribe(id.toString(), this.user.id.toString()).subscribe(() => {
             this.fetchUser();
             this.snackInfo('Abonnement ajouté !')
         });

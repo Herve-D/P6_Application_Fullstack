@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { PostRequest } from 'src/app/models/postRequest.interface';
 import { Topic } from 'src/app/models/topic.interface';
-import { FeedService } from 'src/app/services/feed.service';
+import { PostService } from 'src/app/components/feed/post/services/post.service';
+import { TopicService } from '../../topic/services/topic.service';
 
 @Component({
     selector: 'app-post-create',
@@ -14,7 +15,7 @@ import { FeedService } from 'src/app/services/feed.service';
 export class PostCreateComponent {
 
     public onError = false;
-    public topics$: Observable<Topic[]> = this.feedService.getTopics();
+    public topics$: Observable<Topic[]> = this.topicService.getTopics();
     public form = this.fb.group({
         topic: ['', [Validators.required]],
         title: ['', [Validators.required]],
@@ -22,13 +23,14 @@ export class PostCreateComponent {
     });
 
     constructor(private fb: FormBuilder,
-        private feedService: FeedService,
+        private postService: PostService,
+        private topicService: TopicService,
         private router: Router) { }
 
     public submit(): void {
         if (this.form.valid) {
             const post = this.form.value as PostRequest;
-            this.feedService.createPost(post).subscribe(
+            this.postService.createPost(post).subscribe(
                 () => {
                     this.router.navigate(['/post-list'])
                 },

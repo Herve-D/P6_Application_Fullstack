@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FeedService } from 'src/app/services/feed.service';
+import { PostService } from 'src/app/components/feed/post/services/post.service';
 
 @Component({
     selector: 'app-post-list',
@@ -10,7 +10,7 @@ export class PostListComponent implements OnInit {
 
     public posts$ = this.feedService.getPosts();
 
-    constructor(private feedService: FeedService) { }
+    constructor(private feedService: PostService) { }
 
     ngOnInit(): void { }
 
