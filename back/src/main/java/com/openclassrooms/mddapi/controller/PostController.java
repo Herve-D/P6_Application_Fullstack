@@ -25,6 +25,12 @@ public class PostController {
 	@Autowired
 	private PostService postService;
 
+	/**
+	 * Create a new post.
+	 * 
+	 * @param postRequest - An object containing the data of the post to be saved.
+	 * @return The saved post.
+	 */
 	@PostMapping
 	public ResponseEntity<?> createPost(@RequestBody PostRequest postRequest) {
 		try {
@@ -37,6 +43,12 @@ public class PostController {
 		}
 	}
 
+	/**
+	 * Get a post using an id.
+	 * 
+	 * @param id - The id of the post.
+	 * @return A filled post object.
+	 */
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getPostById(@PathVariable("id") String id) {
 		try {
@@ -51,6 +63,10 @@ public class PostController {
 		}
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	@GetMapping
 	public ResponseEntity<?> getPosts() {
 		try {

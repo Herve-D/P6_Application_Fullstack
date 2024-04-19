@@ -21,6 +21,14 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Autowired
 	private IUserRepository userRepository;
 
+	/**
+	 * Load user details by username.
+	 * 
+	 * @param username - The username of the user to load.
+	 * @return UserDetails object containing user details.
+	 * @throws UsernameNotFoundException If the user with the given username is not
+	 *                                   found.
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Optional<MddUser> userOptional = userRepository.findByEmail(username);
@@ -32,6 +40,11 @@ public class CustomUserDetailsService implements UserDetailsService {
 				getGrantedAuthorities());
 	}
 
+	/**
+	 * Get the granted authorities for the user.
+	 * 
+	 * @return List of GrantedAuthority objects representing the user's roles.
+	 */
 	private List<GrantedAuthority> getGrantedAuthorities() {
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		authorities.add(new SimpleGrantedAuthority("ROLE_USER"));

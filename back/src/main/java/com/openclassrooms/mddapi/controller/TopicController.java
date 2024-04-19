@@ -25,6 +25,11 @@ public class TopicController {
 	@Autowired
 	private TopicService topicService;
 
+	/**
+	 * Get all topics.
+	 * 
+	 * @return A list object of all topics.
+	 */
 	@GetMapping
 	public ResponseEntity<List<TopicDto>> getTopics() {
 		log.info("Retrieve all topics");
@@ -35,6 +40,13 @@ public class TopicController {
 		}
 	}
 
+	/**
+	 * Subscribe a topic to an user.
+	 * 
+	 * @param id     - The id of the topic.
+	 * @param userId - The id of the user.
+	 * @return
+	 */
 	@PostMapping("/{id}/subscribe/{userId}")
 	public ResponseEntity<?> subscribe(@PathVariable("id") String id, @PathVariable("userId") String userId) {
 		try {
@@ -46,6 +58,13 @@ public class TopicController {
 		}
 	}
 
+	/**
+	 * Unsubscribe a topic from a user.
+	 * 
+	 * @param id     - The id of the topic.
+	 * @param userId - The id of the user.
+	 * @return
+	 */
 	@DeleteMapping("/{id}/subscribe/{userId}")
 	public ResponseEntity<?> unSubscribe(@PathVariable("id") String id, @PathVariable("userId") String userId) {
 		try {

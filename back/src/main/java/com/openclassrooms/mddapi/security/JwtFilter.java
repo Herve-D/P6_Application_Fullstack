@@ -28,6 +28,15 @@ public class JwtFilter extends OncePerRequestFilter {
 	@Autowired
 	private CustomUserDetailsService customUserDetailsService;
 
+	/**
+	 * Filter method to perform JWT token validation and authentication.
+	 * 
+	 * @param request     - The HTTP request.
+	 * @param response    - The HTTP response.
+	 * @param filterChain - The filter chain to execute.
+	 * @throws ServletException If an internal error occurs during filtering.
+	 * @throws IOException      If an I/O error occurs during filtering.
+	 */
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
@@ -41,6 +50,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
 		final String token = header.split(" ")[1].trim();
 		log.info("Token received by filter is : {}", token);
+
 		if (!jwtService.validate(token)) {
 			filterChain.doFilter(request, response);
 			return;
