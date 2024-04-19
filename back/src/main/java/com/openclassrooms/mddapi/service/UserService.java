@@ -21,7 +21,7 @@ public class UserService {
 	@Autowired
 	private ModelMapper modelMapper;
 
-	private MddUserDto toDto(MddUser user) {
+	public MddUserDto toDto(MddUser user) {
 		return this.modelMapper.map(user, MddUserDto.class);
 	}
 
@@ -33,9 +33,9 @@ public class UserService {
 		return this.toDto(this.userRepository.findById(id).orElse(null));
 	}
 
-	public void updateUser(Long id, MddUserDto user) {
+	public MddUser updateUser(Long id, MddUserDto user) {
 		user.setId(id);
-		this.userRepository.save(this.toEntity(user));
+		return this.userRepository.save(this.toEntity(user));
 	}
 
 	public MddUserDto getCurrentUser() {

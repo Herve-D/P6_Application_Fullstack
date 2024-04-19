@@ -1,7 +1,5 @@
 package com.openclassrooms.mddapi.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.openclassrooms.mddapi.dto.PostDto;
 import com.openclassrooms.mddapi.dto.PostRequest;
+import com.openclassrooms.mddapi.model.Post;
 import com.openclassrooms.mddapi.service.PostService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -29,28 +28,34 @@ public class PostController {
 	@PostMapping
 	public ResponseEntity<?> createPost(@RequestBody PostRequest postRequest) {
 		try {
-			log.info("Create post : {}", postRequest);
-			this.postService.createPost(postRequest);
-			return ResponseEntity.ok().build();
+			log.info("Create post request : {}", postRequest);
+			Post post = this.postService.createPost(postRequest);
+			log.info("Post saved : {}", post);
+			return ResponseEntity.ok().body(this.postService.toDto(post));
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<PostDto> getPostById(@PathVariable("id") String id) {
+	public ResponseEntity<?> getPostById(@PathVariable("id") String id) {
 		try {
-			return ResponseEntity.ok(this.postService.getPostById(Long.parseLong(id)));
+			log.info("Retrieving post : {}", id);
+			PostDto postDto = this.postService.getPostById(Long.parseLong(id));
+			if (postDto == null) {
+				return ResponseEntity.notFound().build();
+			}
+			return ResponseEntity.ok().body(postDto);
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+			return ResponseEntity.badRequest().build();
 		}
 	}
 
 	@GetMapping
-	public ResponseEntity<List<PostDto>> getPosts() {
-		log.info("Retrieve all posts");
+	public ResponseEntity<?> getPosts() {
 		try {
-			return ResponseEntity.ok(postService.getPosts());
+			log.info("Retrieve all posts");
+			return ResponseEntity.ok().body(this.postService.getPosts());
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}

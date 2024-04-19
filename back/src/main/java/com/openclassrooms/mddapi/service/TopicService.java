@@ -28,15 +28,15 @@ public class TopicService {
 	private ModelMapper modelMapper;
 
 	private TopicDto toDto(Topic topic) {
-		return modelMapper.map(topic, TopicDto.class);
+		return this.modelMapper.map(topic, TopicDto.class);
 	}
 
 	public TopicDto getTopicById(Long id) {
-		return toDto(this.topicRepository.findById(id).orElse(null));
+		return this.toDto(this.topicRepository.findById(id).orElse(null));
 	}
 
 	public List<TopicDto> getTopics() {
-		return topicRepository.findAll().stream().map(this::toDto).collect(Collectors.toList());
+		return this.topicRepository.findAll().stream().map(this::toDto).collect(Collectors.toList());
 	}
 
 	public void subscribe(Long id, Long userId) {

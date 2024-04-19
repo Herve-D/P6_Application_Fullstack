@@ -53,7 +53,8 @@ export class ProfileComponent implements OnInit {
             name: this.userForm.value.name,
             email: this.userForm.value.email
         };
-        this.profileService.updateUser(user.id.toString(), updateUser).subscribe(() => {
+        this.profileService.updateUser(user.id.toString(), updateUser).subscribe((user: User) => {
+            this.user = user;
             this.snackInfo('Mise à jour effectuée !')
         },
             error => this.onError = true);

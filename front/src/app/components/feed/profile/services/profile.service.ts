@@ -17,8 +17,8 @@ export class ProfileService {
         return this.httpClient.get<Topic[]>(`${this.pathService}/user/${id}/topics`);
     }
 
-    public updateUser(id: string, user: User) {
-        return this.httpClient.put(`${this.pathService}/user/${id}`, user);
+    public updateUser(id: string, user: User): Observable<User> {
+        return this.httpClient.put<User>(`${this.pathService}/user/${id}`, user);
     }
 
     public unSubscribe(id: string, userId: string) {

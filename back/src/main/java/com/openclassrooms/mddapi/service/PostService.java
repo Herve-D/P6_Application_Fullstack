@@ -29,7 +29,7 @@ public class PostService {
 	@Autowired
 	private ModelMapper modelMapper;
 
-	private PostDto toDto(Post post) {
+	public PostDto toDto(Post post) {
 		return this.modelMapper.map(post, PostDto.class);
 	}
 
@@ -37,7 +37,7 @@ public class PostService {
 		return this.modelMapper.map(postDto, Post.class);
 	}
 
-	public void createPost(PostRequest postRequest) {
+	public Post createPost(PostRequest postRequest) {
 		MddUserDto userDto = this.userService.getCurrentUser();
 		TopicDto topicDto = this.topicService.getTopicById(postRequest.getTopic());
 
@@ -47,7 +47,7 @@ public class PostService {
 		postDto.setUser(userDto);
 		postDto.setTopic(topicDto);
 
-		this.postRepository.save(toEntity(postDto));
+		return this.postRepository.save(this.toEntity(postDto));
 	}
 
 	public void updatePost(PostDto postDto) {
