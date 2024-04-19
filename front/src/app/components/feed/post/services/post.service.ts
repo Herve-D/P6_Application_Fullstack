@@ -14,8 +14,8 @@ export class PostService {
 
     constructor(private httpClient: HttpClient) { }
 
-    public createPost(post: PostRequest) {
-        return this.httpClient.post(`${this.pathService}/post`, post);
+    public createPost(post: PostRequest): Observable<Post> {
+        return this.httpClient.post<Post>(`${this.pathService}/post`, post);
     }
 
     public getPostById(id: string): Observable<Post> {
