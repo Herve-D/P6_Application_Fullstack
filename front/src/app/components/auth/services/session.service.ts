@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { User } from "../models/user.interface";
+import { User } from "../../../models/user.interface";
 import { BehaviorSubject, Observable } from "rxjs";
 
 @Injectable({
@@ -10,10 +10,6 @@ export class SessionService {
     public user: User | undefined;
 
     private isLoggedSubject = new BehaviorSubject<boolean>(this.isLogged);
-
-    public $isLogged(): Observable<boolean> {
-        return this.isLoggedSubject.asObservable();
-    }
 
     public logIn(user: User): void {
         this.user = user;

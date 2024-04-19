@@ -5,9 +5,9 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Topic } from 'src/app/models/topic.interface';
 import { User } from 'src/app/models/user.interface';
-import { AuthService } from 'src/app/services/auth.service';
-import { FeedService } from 'src/app/services/feed.service';
-import { SessionService } from 'src/app/services/session.service';
+import { AuthService } from 'src/app/components/auth/services/auth.service';
+import { SessionService } from 'src/app/components/auth/services/session.service';
+import { ProfileService } from './services/profile.service';
 
 @Component({
     selector: 'app-profile',
@@ -22,7 +22,7 @@ export class ProfileComponent implements OnInit {
     public onError = false;
 
     constructor(private authService: AuthService,
-        private feedService: FeedService,
+        private profileService: ProfileService,
         private fb: FormBuilder,
         private matSnack: MatSnackBar,
         private sessionService: SessionService,
@@ -44,7 +44,7 @@ export class ProfileComponent implements OnInit {
     }
 
     private fetchSubscriptions(): void {
-        this.subscriptions$ = this.feedService.getSubscriptions(this.user.id.toString());
+        this.subscriptions$ = this.profileService.getSubscriptions(this.user.id.toString());
     }
 
     public submit(user: User): void {
@@ -53,14 +53,14 @@ export class ProfileComponent implements OnInit {
             name: this.userForm.value.name,
             email: this.userForm.value.email
         };
-        this.feedService.updateUser(user.id.toString(), updateUser).subscribe(() => {
+        this.profileService.updateUser(user.id.toString(), updateUser).subscribe(() => {
             this.snackInfo('Mise à jour effectuée !')
         },
             error => this.onError = true);
     }
 
     public unSubscribe(id: number): void {
-        this.feedService.unSubscribe(id.toString(), this.user.id.toString()).subscribe(() => {
+        this.profileService.unSubscribe(id.toString(), this.user.id.toString()).subscribe(() => {
             this.fetchSubscriptions();
             this.snackInfo('Abonnement supprimé !')
         });
