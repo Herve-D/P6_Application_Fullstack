@@ -1,4 +1,4 @@
-# P6-Full-Stack-reseau-dev
+# P6 - Application Fullstack
 
 ## Front
 
