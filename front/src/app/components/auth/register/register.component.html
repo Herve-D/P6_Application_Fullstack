@@ -4,7 +4,7 @@
         <mat-card-header>
             <mat-card-title>Inscription</mat-card-title>
         </mat-card-header>
-        <form [formGroup]="form">
+        <form [formGroup]="form" (ngSubmit)="submit()">
             <mat-card-content class="formGroup">
                 <label for="name">Nom d'utilisateur</label>
                 <mat-form-field appearance="outline">
@@ -18,8 +18,11 @@
                 <mat-form-field appearance="outline">
                     <input matInput id="password" formControlName="password">
                 </mat-form-field>
+                <div *ngIf="form.get('password')?.hasError('pattern')">Le mot de passe doit avoir minimum 8
+                    caractères dont 1 chiffre, 1 lettre minuscule, 1 lettre majuscule, 1 caractère spécial.</div>
             </mat-card-content>
-            <button mat-raised-button color="primary" (click)="submit()">S'inscrire</button>
+            <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">S'inscrire</button>
+            <span *ngIf="onError">Une erreur est survenue</span>
         </form>
     </mat-card>
 </div>

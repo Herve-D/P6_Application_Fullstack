@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthResponse } from 'src/app/models/authResponse.interface';
 import { Register } from 'src/app/models/register.interface';
@@ -17,9 +17,30 @@ export class RegisterComponent {
     public onError = false;
 
     public form = this.fb.group({
-        name: [''],
-        email: [''],
-        password: ['']
+        name: [
+            '',
+            [
+                Validators.required,
+                Validators.min(3),
+                Validators.max(20)
+            ]
+        ],
+        email: [
+            '',
+            [
+                Validators.required,
+                Validators.email
+            ]
+        ],
+        password: [
+            '',
+            [
+                Validators.required,
+                Validators.min(8),
+                Validators.max(40),
+                Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
+            ]
+        ]
     });
 
     constructor(private fb: FormBuilder,
@@ -29,16 +50,16 @@ export class RegisterComponent {
 
     public submit(): void {
         const register = this.form.value as Register;
-        this.authService.register(register).subscribe(
-            (response: AuthResponse) => {
+        this.authService.register(register).subscribe({
+            next: (response: AuthResponse) => {
                 localStorage.setItem('token', response.token);
                 this.authService.me().subscribe((user: User) => {
                     this.sessionService.logIn(user);
                     this.router.navigate(['/post-list'])
                 });
             },
-            error => this.onError = true
-        );
+            error: _ => this.onError = true,
+        });
     }
 
 }

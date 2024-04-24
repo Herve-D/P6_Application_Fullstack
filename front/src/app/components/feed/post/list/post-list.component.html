@@ -1,16 +1,21 @@
 <div>
     <button mat-raised-button routerLink="/post-create">Créer un article</button>
-    <mat-card class="card" *ngFor="let post of (posts$ | async)" [routerLink]="['/post-detail', post.id]">
-        <mat-card-header>
-            <mat-card-title>{{ post.title }}</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-            <p>
-                {{ post.content }}
-            </p>
-            <p>
-                {{ post.created_at }}
-            </p>
-        </mat-card-content>
-    </mat-card>
+    <div *ngIf="(posts$ | async)?.length === 0; else posts">
+        <p>Abonnez-vous à un thème afin de consulter des articles.</p>
+    </div>
+    <ng-template #posts>
+        <mat-card class="card" *ngFor="let post of (posts$ | async)" [routerLink]="['/post-detail', post.id]">
+            <mat-card-header>
+                <mat-card-title>{{ post.title }}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <p>
+                    {{ post.content }}
+                </p>
+                <p>
+                    {{ post.created_at }}
+                </p>
+            </mat-card-content>
+        </mat-card>
+    </ng-template>
 </div>

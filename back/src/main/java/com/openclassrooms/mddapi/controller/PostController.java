@@ -64,14 +64,15 @@ public class PostController {
 	}
 
 	/**
+	 * Get the posts belonging to the user's subscriptions.
 	 * 
-	 * @return
+	 * @return A list of Posts from the User's subscribed Topics.
 	 */
 	@GetMapping
-	public ResponseEntity<?> getPosts() {
+	public ResponseEntity<?> getSubscriptionPosts() {
 		try {
-			log.info("Retrieve all posts");
-			return ResponseEntity.ok().body(this.postService.getPosts());
+			log.info("Retrieve all posts from user subscriptions.");
+			return ResponseEntity.ok().body(this.postService.getSubscriptionPosts());
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
