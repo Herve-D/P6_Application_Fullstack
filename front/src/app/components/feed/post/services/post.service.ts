@@ -22,7 +22,7 @@ export class PostService {
         return this.httpClient.get<Post>(`${this.pathService}/post/${id}`);
     }
 
-    public getPosts(): Observable<Post[]> {
+    public getSubscriptionPosts(): Observable<Post[]> {
         return this.httpClient.get<Post[]>(`${this.pathService}/post`);
     }
 

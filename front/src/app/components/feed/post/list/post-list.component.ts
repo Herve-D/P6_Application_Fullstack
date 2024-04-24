@@ -8,7 +8,7 @@ import { PostService } from 'src/app/components/feed/post/services/post.service'
 })
 export class PostListComponent implements OnInit {
 
-    public posts$ = this.feedService.getPosts();
+    public posts$ = this.feedService.getSubscriptionPosts();
 
     constructor(private feedService: PostService) { }
 

@@ -31,6 +31,10 @@ public class TopicService {
 		return this.modelMapper.map(topic, TopicDto.class);
 	}
 
+	public Topic toEntity(TopicDto topicDto) {
+		return this.modelMapper.map(topicDto, Topic.class);
+	}
+
 	public TopicDto getTopicById(Long id) {
 		return this.toDto(this.topicRepository.findById(id).orElse(null));
 	}

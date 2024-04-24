@@ -1,5 +1,6 @@
 package com.openclassrooms.mddapi.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,8 +59,17 @@ public class PostService {
 		return this.toDto(this.postRepository.findById(id).orElse(null));
 	}
 
-	public List<PostDto> getPosts() {
-		return this.postRepository.findAll().stream().map(this::toDto).collect(Collectors.toList());
+	public List<PostDto> getSubscriptionPosts() {
+		MddUserDto userDto = this.userService.getCurrentUser();
+		List<TopicDto> topicDtos = userDto.getTopics();
+
+		List<PostDto> postDtos = new ArrayList<>();
+		topicDtos.forEach(topicDto -> {
+			List<Post> postByTopic = this.postRepository.findByTopic(this.topicService.toEntity(topicDto));
+			postDtos.addAll(postByTopic.stream().map(this::toDto).collect(Collectors.toList()));
+		});
+
+		return postDtos;
 	}
 
 }

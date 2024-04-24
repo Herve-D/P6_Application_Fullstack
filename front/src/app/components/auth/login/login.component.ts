@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthResponse } from 'src/app/models/authResponse.interface';
 import { Login } from 'src/app/models/login.interface';
@@ -17,8 +17,8 @@ export class LoginComponent {
     public onError = false;
 
     form = this.fb.group({
-        email: [''],
-        password: ['']
+        email: ['', Validators.required],
+        password: ['', Validators.required]
     });
 
     constructor(private fb: FormBuilder,
@@ -28,16 +28,16 @@ export class LoginComponent {
 
     public submit(): void {
         const login = this.form.value as Login;
-        this.authService.login(login).subscribe(
-            (response: AuthResponse) => {
+        this.authService.login(login).subscribe({
+            next: (response: AuthResponse) => {
                 localStorage.setItem('token', response.token);
                 this.authService.me().subscribe((user: User) => {
                     this.sessionService.logIn(user);
                     this.router.navigate(['/post-list']);
                 });
             },
-            error => this.onError = true
-        );
+            error: _ => this.onError = true
+        });
     }
 
 }
