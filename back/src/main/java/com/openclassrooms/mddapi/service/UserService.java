@@ -6,6 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.openclassrooms.mddapi.dto.MddUserDto;
@@ -17,6 +18,9 @@ public class UserService {
 
 	@Autowired
 	private IUserRepository userRepository;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Autowired
 	private ModelMapper modelMapper;
@@ -34,8 +38,11 @@ public class UserService {
 	}
 
 	public MddUser updateUser(Long id, MddUserDto user) {
-		user.setId(id);
-		return this.userRepository.save(this.toEntity(user));
+		MddUserDto userDto = getUserById(id);
+		userDto.setEmail(user.getEmail());
+		userDto.setName(user.getName());
+		userDto.setPassword(passwordEncoder.encode(user.getPassword()));
+		return this.userRepository.save(this.toEntity(userDto));
 	}
 
 	public MddUserDto getCurrentUser() {

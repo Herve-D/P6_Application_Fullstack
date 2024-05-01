@@ -1,4 +1,10 @@
-.formGroup {
+h1 {
+    text-align: center;
+}
+
+.form {
     display: flex;
     flex-direction: column;
+    margin: 3em auto;
+    width: 25%;
 }

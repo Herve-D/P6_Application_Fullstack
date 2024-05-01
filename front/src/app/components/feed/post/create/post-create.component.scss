@@ -1,4 +1,47 @@
-.formGroup {
-    display: flex;
-    flex-direction: column;
+.container {
+    margin: 1em auto;
+
+    .arrow_back {
+        margin-left: 3em;
+    }
+
+    mat-icon {
+        margin: 1em;
+    }
+
+    .form {
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+        width: 40%;
+
+        h2 {
+            margin: 1em auto;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            margin: 0.5em 0;
+        }
+
+        .button {
+            display: flex;
+            width: fit-content;
+            margin: 2em auto;
+            padding: 0 2em;
+        }
+    }
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: blueviolet;
+}
+
+@media (max-width: 425px) {
+    .container {
+        .form {
+            width: 80%;
+        }
+    }
 }

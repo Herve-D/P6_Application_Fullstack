@@ -1,3 +1,44 @@
-.card {
-    cursor: pointer;
+.top-actions {
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+    padding: 2em;
+    margin: auto;
+    box-sizing: border-box;
+
+    .create {
+        width: fit-content;
+        padding: 0 2em;
+    }
+
+    .filter {
+        width: fit-content;
+    }
+}
+
+
+.articles {
+    width: fit-content;
+    padding: 2em;
+    display: grid;
+    grid-template-columns: auto auto;
+    margin: auto;
+    grid-gap: 2em;
+
+    .item {
+        cursor: pointer;
+        background-color: whitesmoke;
+        border-radius: 0.5em;
+        padding: 1em;
+        margin: auto;
+        width: 90%;
+        height: 90%;
+        overflow-y: scroll;
+    }
+
+    .item-infos {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding: 1em 0;
+    }
 }

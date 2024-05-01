@@ -1,0 +1,121 @@
+.post {
+    margin-top: 2em;
+
+    .post-title {
+        margin: 0.5em;
+        display: flex;
+        align-items: center;
+
+        h2 {
+            padding-left: 2em;
+            margin-bottom: 0.5em;
+        }
+
+        mat-icon {
+            margin-left: 1em;
+        }
+    }
+
+    .post-subtitle {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin: 0em 4em 0em 4em;
+        flex-wrap: wrap;
+
+        .post-subtitle-item {
+            margin: 0em 0.5em;
+        }
+    }
+
+    .content {
+        margin: 1.5em 4.5em 0em 4.5em;
+        display: flex;
+        flex-direction: column;
+
+        p {
+            margin-bottom: 1em;
+            padding-bottom: 2em;
+            border-bottom: 1px solid #ccc;
+        }
+    }
+}
+
+.comments {
+    h3 {
+        padding-left: 4.5em;
+    }
+
+    .items {
+        display: flex;
+        margin: 2em 8em 1em 8em;
+        justify-content: space-around;
+
+        .name {
+            margin: 0em;
+        }
+
+        .comment {
+            background-color: whitesmoke;
+            width: 80%;
+            border-radius: 0.5em;
+            padding: 1em;
+        }
+    }
+
+    .form {
+        display: flex;
+        margin: 2em 0.5em 1em 8em;
+        justify-content: space-evenly;
+        align-items: center;
+
+        mat-form-field {
+            width: 85%;
+
+            textarea {
+                border: none;
+            }
+        }
+
+        .button {
+            margin-bottom: 2em;
+
+            mat-icon {
+                font-size: 40px;
+                width: fit-content;
+                height: fit-content;
+                transform: rotate(-45deg);
+            }
+        }
+    }
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: black;
+    border-radius: 0.5em;
+
+    @media only screen and (max-width: 425px) {
+        color: transparent;
+    }
+}
+
+@media only screen and (max-width: 425px) {
+    .comments {
+        .items {
+            width: 70%;
+            margin: 1em auto;
+            flex-direction: column;
+        }
+
+        .form {
+            margin: 0em 1em 1em 1em;
+            border: 1px solid black;
+            border-radius: 0.5em;
+
+            mat-form-field {
+                width: 100%;
+            }
+
+        }
+    }
+}

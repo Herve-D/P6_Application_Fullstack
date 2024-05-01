@@ -1,48 +1,43 @@
-<div>
-    <mat-card *ngIf="post">
-        <mat-card-header>
-            <button mat-icon-button (click)="back()">
-                <mat-icon>arrow_back</mat-icon>
-            </button>
-            <mat-card-title>{{ post.title }}</mat-card-title>
-        </mat-card-header>
-        <mat-card-subtitle>
-            <span>{{ post.created_at }}</span>
-            <span>{{ post.user.name }}</span>
-            <span>{{ post.topic.name }}</span>
-        </mat-card-subtitle>
-        <mat-card-content>
-            {{ post.content }}
-        </mat-card-content>
-    </mat-card>
+<div class="post">
+    <mat-card-title class="post-title">
+        <button mat-icon-button (click)="back()">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <h2>{{ post.title }}</h2>
+    </mat-card-title>
+    <mat-card-subtitle class="post-subtitle">
+        <div class="post-subtitle-item">{{ post.created_at | date:'dd/MM/yyyy' }}</div>
+        <div class="post-subtitle-item">{{ post.user.name | titlecase }}</div>
+        <div class="post-subtitle-item">{{ post.topic.name | titlecase }}</div>
+    </mat-card-subtitle>
+    <mat-card-content class="content">
+        <p>{{ post.content }}</p>
+    </mat-card-content>
+</div>
 
-    <hr>
-
-    <p>Commentaires</p>
-    <div *ngIf="post?.comments?.length === 0; else comments">
+<div class="comments">
+    <mat-card-title>
+        <h3>Commentaires</h3>
+    </mat-card-title>
+    <div class="items" *ngIf="post?.comments?.length === 0; else comments">
         <p>Aucun commentaire</p>
     </div>
     <ng-template #comments>
-        <div *ngFor="let comment of post?.comments">
-            <span>{{ comment.user.name }}</span>
-            <!-- <mat-card> -->
-            <!-- <mat-card-content> -->
-            <span>
-                {{ comment.content }}
-            </span>
-            <!-- </mat-card-content> -->
-            <!-- </mat-card> -->
+        <div class="items" *ngFor="let comment of post?.comments">
+            <p class="name">{{ comment.user.name | titlecase }}</p>
+            <div class="comment">
+                <p>{{ comment.content }}</p>
+            </div>
         </div>
     </ng-template>
 
-    <form *ngIf="commentForm" [formGroup]="commentForm" (ngSubmit)="submit()">
-        <span>
-            <mat-form-field appearance="outline">
-                <input matInput formControlName="content" placeholder="Écrivez ici votre commentaire">
-            </mat-form-field>
-            <button mat-icon-button type="submit" [disabled]="commentForm.invalid">
-                <mat-icon>send</mat-icon>
-            </button>
-        </span>
+    <form class="form" *ngIf="commentForm" [formGroup]="commentForm" (ngSubmit)="submit()">
+        <mat-form-field appearance="outline">
+            <textarea matInput formControlName="content" placeholder="Écrivez ici votre commentaire" rows="4">
+            </textarea>
+        </mat-form-field>
+        <button mat-icon-button class="button" color="primary" type="submit" [disabled]="commentForm.invalid">
+            <mat-icon>send</mat-icon>
+        </button>
     </form>
 </div>

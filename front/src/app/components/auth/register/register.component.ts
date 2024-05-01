@@ -6,6 +6,7 @@ import { Register } from 'src/app/models/register.interface';
 import { User } from 'src/app/models/user.interface';
 import { AuthService } from 'src/app/components/auth/services/auth.service';
 import { SessionService } from 'src/app/components/auth/services/session.service';
+import { PASSWORD_PATTERN } from 'src/app/constants/password.validator';
 
 @Component({
     selector: 'app-register',
@@ -37,8 +38,7 @@ export class RegisterComponent {
             [
                 Validators.required,
                 Validators.min(8),
-                Validators.max(40),
-                Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
+                Validators.pattern(PASSWORD_PATTERN)
             ]
         ]
     });

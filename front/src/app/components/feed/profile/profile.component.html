@@ -1,35 +1,48 @@
 <div class="profile">
     <h2> Profil utilisateur</h2>
-    <form *ngIf="userForm" [formGroup]="userForm" class="formGroup" (ngSubmit)="submit(user)">
+    <form *ngIf="userForm" [formGroup]="userForm" class="form" (ngSubmit)="submit(user)">
         <mat-form-field appearance="outline">
-            <input matInput formControlName="name" class="field">
+            <input matInput formControlName="name">
         </mat-form-field>
         <mat-form-field appearance="outline">
-            <input matInput formControlName="email" class="field">
+            <input matInput formControlName="email">
         </mat-form-field>
-        <button mat-raised-button type="submit">Sauvegarder</button>
+        <mat-form-field appearance="outline" hintLabel="Mot de passe">
+            <input matInput formControlName="password" [type]="'password'">
+        </mat-form-field>
+        <div class="password">
+            <span *ngIf="userForm.get('password')?.hasError('pattern')">Le mot de passe doit avoir minimum 8
+                caractères dont 1 chiffre, 1 lettre minuscule, 1 lettre majuscule, 1 caractère spécial.</span>
+            <span *ngIf="onError" class="error ml2">Une erreur est survenue</span>
+        </div>
+        <button mat-raised-button class="save" color="primary" type="submit"
+            [disabled]="userForm.invalid">Sauvegarder</button>
     </form>
-    <span (click)="logout()">Se déconnecter</span>
+    <div class="logout">
+        <button mat-raised-button class="link" (click)="logout()">Se déconnecter</button>
+    </div>
 </div>
-<hr>
-<div class="profile">
-    <div>
-        <h2>Abonnements</h2>
+
+<div class="subscriptions">
+    <hr>
+    <h2>Abonnements</h2>
+    <div class="topics">
         <div *ngIf="(subscriptions$ | async)?.length === 0; else subscriptions">
             <p>Aucun abonnement trouvé actuellement.</p>
         </div>
         <ng-template #subscriptions>
-            <mat-card *ngFor="let subscription of (subscriptions$ | async)">
-                <mat-card-header>
-                    <mat-card-title>{{ subscription.name }}</mat-card-title>
-                </mat-card-header>
+            <div class="topic" *ngFor="let subscription of (subscriptions$ | async)">
+                <mat-card-title class="topic-title">
+                    {{ subscription.name }}
+                </mat-card-title>
                 <mat-card-content>
-                    <p>
-                        {{ subscription.content }}
-                    </p>
+                    <p class="topic-content">{{ subscription.content }}</p>
+                    <div class="button">
+                        <button mat-raised-button color="primary" (click)="unSubscribe(subscription.id)">Se
+                            désabonner</button>
+                    </div>
                 </mat-card-content>
-                <button mat-raised-button (click)="unSubscribe(subscription.id)">Se désabonner</button>
-            </mat-card>
+            </div>
         </ng-template>
     </div>
 </div>

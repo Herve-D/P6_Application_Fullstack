@@ -1,0 +1,33 @@
+.topics {
+    width: fit-content;
+    padding: 2em;
+    display: grid;
+    grid-template-columns: auto auto;
+    margin: auto;
+    grid-gap: 2em;
+
+    .items {
+        background-color: whitesmoke;
+        border-radius: 0.5em;
+        padding: 1em;
+        margin: auto;
+        width: 95%;
+        height: 90%;
+
+        .item-content {
+            margin: 1em auto;
+        }
+
+        .button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            button {
+                width: fit-content;
+                padding: 0 2em;
+            }
+        }
+    }
+
+}

@@ -14,7 +14,7 @@ import { PostService } from 'src/app/components/feed/post/services/post.service'
 })
 export class PostDetailComponent implements OnInit {
 
-    public post: Post | undefined;
+    public post!: Post;
     public postId: string;
     public commentForm!: FormGroup;
 
@@ -46,13 +46,6 @@ export class PostDetailComponent implements OnInit {
         });
     }
 
-    private clearForm(): void {
-        this.commentForm.reset();
-        Object.keys(this.commentForm.controls).forEach((key) => {
-            this.commentForm.controls[key].setErrors(null);
-        })
-    }
-
     public submit(): void {
         if (this.commentForm.valid) {
             this.authService.me().subscribe((user: User) => {
@@ -62,7 +55,7 @@ export class PostDetailComponent implements OnInit {
                 this.feedService.createCommment(comment).subscribe(
                     () => {
                         this.fetchPost();
-                        this.clearForm();
+                        this.initForm();
                     }
                 )
             })
