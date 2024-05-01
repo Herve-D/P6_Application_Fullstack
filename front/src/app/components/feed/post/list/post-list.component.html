@@ -1,9 +1,9 @@
 <div>
     <div class="top-actions">
         <button class="create" mat-raised-button color="primary" routerLink="/post-create">Créer un article</button>
-        <button class="filter" mat-icon-button>
-            <span>Trier par</span>
-            <mat-icon>arrow_upward</mat-icon>
+        <button class="filter" mat-icon-button (click)="sortPosts()">
+            <span>Trier par </span>
+            <mat-icon>{{ isDescending ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
         </button>
     </div>
     <div class="articles">

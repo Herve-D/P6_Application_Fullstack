@@ -19,7 +19,7 @@ export class PostDetailComponent implements OnInit {
     public commentForm!: FormGroup;
 
     constructor(private route: ActivatedRoute,
-        private feedService: PostService,
+        private postService: PostService,
         private authService: AuthService,
         private fb: FormBuilder) {
         this.postId = this.route.snapshot.paramMap.get('id')!;
@@ -35,7 +35,7 @@ export class PostDetailComponent implements OnInit {
     }
 
     private fetchPost(): void {
-        this.feedService.getPostById(this.postId).subscribe((post: Post) => {
+        this.postService.getPostById(this.postId).subscribe((post: Post) => {
             this.post = post;
         })
     }
@@ -52,7 +52,7 @@ export class PostDetailComponent implements OnInit {
                 const comment = this.commentForm.value as CommentRequest;
                 comment.postId = +this.postId;
                 comment.userId = user.id;
-                this.feedService.createCommment(comment).subscribe(
+                this.postService.createCommment(comment).subscribe(
                     () => {
                         this.fetchPost();
                         this.initForm();
