@@ -1,21 +1,29 @@
 <div>
-    <button mat-raised-button routerLink="/post-create">Créer un article</button>
-    <div *ngIf="(posts$ | async)?.length === 0; else posts">
-        <p>Abonnez-vous à un thème afin de consulter des articles.</p>
+    <div class="top-actions">
+        <button class="create" mat-raised-button color="primary" routerLink="/post-create">Créer un article</button>
+        <button class="filter" mat-icon-button>
+            <span>Trier par</span>
+            <mat-icon>arrow_upward</mat-icon>
+        </button>
     </div>
-    <ng-template #posts>
-        <mat-card class="card" *ngFor="let post of (posts$ | async)" [routerLink]="['/post-detail', post.id]">
-            <mat-card-header>
-                <mat-card-title>{{ post.title }}</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <p>
-                    {{ post.content }}
-                </p>
-                <p>
-                    {{ post.created_at }}
-                </p>
-            </mat-card-content>
-        </mat-card>
-    </ng-template>
+    <div class="articles">
+        <ng-container *ngIf="(posts$ | async)?.length === 0; else posts">
+            <p>Abonnez-vous à un thème afin de consulter des articles.</p>
+        </ng-container>
+        <ng-template #posts>
+            <mat-card-actions class="item" *ngFor="let post of (posts$ | async)"
+                [routerLink]="['/post-detail', post.id]">
+                <mat-card-header>
+                    <mat-card-title>{{ post.title }}</mat-card-title>
+                    <mat-card-subtitle class="item-infos">
+                        <p>{{ post.created_at | date: 'dd/MM/yyyy' }}</p>
+                        <p>{{ post.user.name | titlecase }}</p>
+                    </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <p>{{ post.content }}</p>
+                </mat-card-content>
+            </mat-card-actions>
+        </ng-template>
+    </div>
 </div>

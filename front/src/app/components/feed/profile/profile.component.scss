@@ -1,18 +1,129 @@
 h2 {
     text-align: center;
+    margin-top: 2em;
+    font-weight: 600;
 }
 
 .profile {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    margin-bottom: 3em;
+
+    .form {
+        display: flex;
+        flex-direction: column;
+        margin: 0 auto;
+        width: 15%;
+
+        @media only screen and (max-width: 425px) {
+            width: 80%;
+        }
+
+        .password {
+            font-size: 0.8em;
+            text-align: justify;
+            width: 100%;
+            margin-bottom: 1.5em;
+
+            @media only screen and (max-width: 425px) {
+                width: 80%;
+                margin: 1em auto;
+            }
+        }
+
+        .save {
+            width: fit-content;
+            padding: 0px 2em;
+            margin: auto;
+        }
+    }
+
+    .logout {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .link {
+            background: none;
+            color: brown;
+            box-shadow: none;
+        }
+    }
 }
 
-.formGroup {
-    display: flex;
-    flex-direction: column;
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: blueviolet;
 }
 
-.field {
-    border-color: blueviolet;
+.subscriptions {
+    hr {
+        width: 80%;
+        margin: 1em auto;
+    }
+
+    .topics {
+        width: fit-content;
+        padding: 2em;
+        display: grid;
+        grid-template-columns: auto auto;
+        margin: auto;
+        grid-gap: 2em;
+        margin-bottom: 2em;
+
+        @media only screen and (max-width: 425px) {
+            display: flex;
+            flex-direction: column;
+            padding: 0em;
+        }
+
+        .topic {
+            background-color: whitesmoke;
+            border-radius: 0.5em;
+            padding: 1em;
+            margin: auto;
+            width: 90%;
+            height: 90%;
+            overflow-y: scroll;
+
+            @media only screen and (max-width: 425px) {
+                padding: 1em;
+                width: 18em;
+                margin: auto;
+            }
+
+            .topic-title {
+                font-size: 1.2em;
+            }
+
+            .topic-content {
+                margin: 0.5em auto 2em auto;
+            }
+
+            .button {
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+
+                button {
+                    width: fit-content;
+                    padding: 0px 2em;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 425px) {
+    h2 {
+        font-size: 1.5em;
+    }
+
+    .topics {
+        padding: 0em;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .topic {
+        padding: 1em;
+        width: 14em;
+    }
 }

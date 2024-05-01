@@ -1,4 +1,26 @@
-.formGroup {
+.arrow_back {
+    margin-left: 2em;
+}
+
+h1 {
+    text-align: center;
+}
+
+.form {
     display: flex;
     flex-direction: column;
+    margin: 3em auto;
+    width: 25%;
+}
+
+.button {
+    display: flex;
+    width: fit-content;
+    margin: 1em auto;
+    padding: 0 2em;
+
+    &:disabled {
+        background-color: #ccc;
+        color: #888;
+    }
 }

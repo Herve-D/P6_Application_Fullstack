@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -8,6 +8,7 @@ import { User } from 'src/app/models/user.interface';
 import { AuthService } from 'src/app/components/auth/services/auth.service';
 import { SessionService } from 'src/app/components/auth/services/session.service';
 import { ProfileService } from './services/profile.service';
+import { PASSWORD_PATTERN } from 'src/app/constants/password.validator';
 
 @Component({
     selector: 'app-profile',
@@ -38,8 +39,26 @@ export class ProfileComponent implements OnInit {
 
     private initForm(user: User): void {
         this.userForm = this.fb.group({
-            name: [user.name],
-            email: [user.email]
+            name: [user.name,
+            [
+                Validators.required,
+                Validators.min(3),
+                Validators.max(20)
+            ]
+            ],
+            email: [user.email,
+            [
+                Validators.required,
+                Validators.email
+            ]
+            ],
+            password: [user.password,
+            [
+                Validators.required,
+                Validators.min(8),
+                Validators.pattern(PASSWORD_PATTERN)
+            ]
+            ]
         });
     }
 
@@ -51,13 +70,16 @@ export class ProfileComponent implements OnInit {
         const updateUser: User = {
             ...user,
             name: this.userForm.value.name,
-            email: this.userForm.value.email
+            email: this.userForm.value.email,
+            password: this.userForm.value.password ? this.userForm.value.password : user.password
         };
-        this.profileService.updateUser(user.id.toString(), updateUser).subscribe((user: User) => {
-            this.user = user;
-            this.snackInfo('Mise à jour effectuée !')
-        },
-            error => this.onError = true);
+        this.profileService.updateUser(user.id.toString(), updateUser).subscribe({
+            next: (user: User) => {
+                this.user = user;
+                this.snackInfo('Mise à jour effectuée !')
+            },
+            error: _ => this.onError = true,
+        });
     }
 
     public unSubscribe(id: number): void {
