@@ -81,7 +81,6 @@ h2 {
             margin: auto;
             width: 90%;
             height: 90%;
-            overflow-y: scroll;
 
             @media only screen and (max-width: 425px) {
                 padding: 1em;
@@ -95,6 +94,10 @@ h2 {
 
             .topic-content {
                 margin: 0.5em auto 2em auto;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
             }
 
             .button {
@@ -112,8 +115,10 @@ h2 {
 }
 
 @media only screen and (max-width: 425px) {
-    h2 {
-        font-size: 1.5em;
+    .subscriptions {
+        h2 {
+            display: none;
+        }
     }
 
     .topics {

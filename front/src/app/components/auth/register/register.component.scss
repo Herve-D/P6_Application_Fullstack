@@ -1,10 +1,73 @@
-h1 {
-    text-align: center;
+.arrow_back {
+    margin-left: 3em;
 }
 
-.form {
+.image {
+    img {
+        display: none;
+    }
+}
+
+h1 {
+    text-align: center;
+    margin: 2em 0;
+}
+
+form {
     display: flex;
     flex-direction: column;
     margin: 3em auto;
     width: 25%;
+
+    .field {
+        input {
+            padding: 0em 1em;
+
+            &:focus {
+                background-color: white;
+            }
+        }
+    }
+
+    span {
+        font-size: 0.8em;
+        text-align: justify;
+    }
+
+    .submit {
+        display: flex;
+        width: fit-content;
+        margin: 2em auto;
+        padding: 0 2em;
+
+        &:disabled {
+            background-color: #ccc;
+            color: #888;
+        }
+    }
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+    color: black;
+}
+
+@media screen and (max-width:1024px) {
+    form {
+        width: 35%;
+        image: url('../../../../assets/logo_p6.png');
+    }
+}
+
+@media screen and (max-width:600px) {
+    .image {
+        img {
+            display: block;
+            width: 80%;
+            margin: 0 auto;
+        }
+    }
+
+    form {
+        width: 60%;
+    }
 }

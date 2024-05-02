@@ -1,18 +1,25 @@
 <div>
-    <button class="arrow_back" mat-icon-button routerLink="/"><mat-icon>arrow_back</mat-icon></button>
+    <button class="arrow_back" mat-icon-button routerLink="/">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+    <div class="image">
+        <img src="../../../../assets/logo_p6.png" alt="logo">
+    </div>
+
     <div>
         <h1>Se connecter</h1>
-        <form class="form" [formGroup]="form" (ngSubmit)="submit()">
-            <label for="email">E-mail ou nom d'utilisateur</label>
+        <form class="field" [formGroup]="form" (ngSubmit)="submit()">
+            <label for="email">E-mail</label>
             <mat-form-field appearance="outline">
-                <input matInput id="email" formControlName="email">
+                <input matInput type="email" formControlName="email">
             </mat-form-field>
             <label for="password">Mot de passe</label>
             <mat-form-field appearance="outline">
-                <input matInput id="password" formControlName="password">
+                <input matInput formControlName="password">
             </mat-form-field>
-            <button class="button" mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Se connecter</button>
-            <span *ngIf="onError">Une erreur est survenue</span>
+            <button class="submit" mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Se
+                connecter</button>
+            <span *ngIf="onError" class="error ml2">Une erreur est survenue</span>
         </form>
     </div>
 </div>

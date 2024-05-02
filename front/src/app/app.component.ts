@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'MDD';
+  @ViewChild('sidenav') sidenav!: MatSidenav;
 
   constructor(private router: Router) { }
 
@@ -17,6 +19,14 @@ export class AppComponent {
 
   public isAuth(): boolean {
     return this.router.url.startsWith('/login') || this.router.url.startsWith('/register');
+  }
+
+  public openSideBar() {
+    this.sidenav.toggle();
+  }
+
+  public closeSideBar() {
+    this.sidenav.close();
   }
 
 }

@@ -1,9 +1,71 @@
-.desktop{
+.toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     background-color: white;
     border-bottom: 1px black solid;
-    justify-content: space-between;
+
+    .actions {
+        display: flex;
+        align-items: center;
+
+        .active {
+            color: blueviolet;
+        }
+
+        .menu {
+            display: none;
+        }
+    }
 }
 
-.active{
-    color: blueviolet;
+.sidenav {
+    height: 100vh;
+}
+
+mat-sidenav {
+    height: calc(100vh - 56px);
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    width: 60%;
+
+    ul {
+        list-style: none;
+        padding-inline-start: 0;
+        padding-inline-end: 0;
+        padding-block-start: 0;
+        padding-block-end: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .account {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
+}
+
+@media (max-width:425px) {
+    .toolbar {
+        .actions {
+            .links {
+                display: none;
+            }
+
+            .menu {
+                display: block;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .auth-page {
+        display: none;
+    }
 }
