@@ -59,6 +59,11 @@ public class PostService {
 		return this.toDto(this.postRepository.findById(id).orElse(null));
 	}
 
+	/**
+	 * Retrieve all the posts from the User's subscribed Topics.
+	 * 
+	 * @return A list of Posts
+	 */
 	public List<PostDto> getSubscriptionPosts() {
 		MddUserDto userDto = this.userService.getCurrentUser();
 		List<TopicDto> topicDtos = userDto.getTopics();
