@@ -1,25 +1,51 @@
-# P6 - Application Fullstack
+# P6 - Développez une application full-stack complète
 
-## Front
+# MDD
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.3.
+## Technologies utilisées
 
-Don't forget to install your node_modules before starting (`npm install`).
+* Java 17
+* Spring Boot 3
+* Spring Security avec authentification JWT
+* Maven
+* Lombok
+* MySQL
+* Angular 14
 
-### Development server
+## Démarrage du projet
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Cloner le dépôt :
 
-### Build
+> git clone [https://github.com/Herve-D/P6_Application_Fullstack](https://github.com/Herve-D/P6_Application_Fullstack.git)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### MySQL
 
-### Where to start
+Le script SQL est disponible ici : `ressources/sql/script.sql`
 
-As you may have seen if you already started the app, a simple home page containing a logo, a title and a button is available. If you take a look at its code (in the `home.component.html`) you will see that an external UI library is already configured in the project.
+Dans le fichier `back/src/main/resources/application.properties` modifiez avec vos informations de base de données :
+```
+spring.datasource.username=xxx
+spring.datasource.password=xxx
+```
 
-This library is `@angular/material`, it's one of the most famous in the angular ecosystem. As you can see on their docs (https://material.angular.io/), it contains a lot of highly customizable components that will help you design your interfaces quickly.
+### Installation des dépendances
 
-Note: I recommend to use material however it's not mandatory, if you prefer you can get ride of it.
+Pour le back-end :
 
-Good luck!
+> cd back
+> mvn clean install
+
+Pour le front-end :
+
+> cd front
+> npm install
+
+### Démarrage back-end
+
+> mvn spring-boot:run
+
+### Démarrage front-end
+
+> npm run start
+
+Le front sera accessible à l'adresse [localhost:4200](http://localhost:4200)
