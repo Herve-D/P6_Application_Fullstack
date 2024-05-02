@@ -12,7 +12,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: () => import('./components/feed/feed.module').then(m => m.FeedModule)
   },
   {
