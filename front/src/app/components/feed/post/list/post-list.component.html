@@ -6,6 +6,7 @@
             <mat-icon>{{ isDescending ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
         </button>
     </div>
+
     <div class="articles">
         <ng-container *ngIf="(posts$ | async)?.length === 0; else posts">
             <p>Abonnez-vous à un thème afin de consulter des articles.</p>
@@ -20,7 +21,7 @@
                         <p>{{ post.user.name | titlecase }}</p>
                     </mat-card-subtitle>
                 </mat-card-header>
-                <mat-card-content>
+                <mat-card-content class="content">
                     <p>{{ post.content }}</p>
                 </mat-card-content>
             </mat-card-actions>

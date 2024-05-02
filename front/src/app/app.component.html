@@ -1,13 +1,39 @@
-<mat-toolbar class="desktop" *ngIf="!isHome()">
+<mat-toolbar class="toolbar" *ngIf="!isHome()" [class.auth-page]="isAuth()">
     <div>
         <img src="/assets/logo_p6.png" alt="MDD" width="100">
     </div>
-    <div *ngIf="!isAuth()">
-        <a mat-button routerLink="/post-list" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Articles</a>
-        <a mat-button routerLink="/topic" routerLinkActive="active">Thèmes</a>
-        <a mat-button routerLink="/profile" routerLinkActive="active"><mat-icon>account_circle</mat-icon></a>
+    <div *ngIf="!isAuth()" class="actions">
+        <div class="links">
+            <a mat-button routerLink="/post-list" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact:true}">Articles</a>
+            <a mat-button routerLink="/topic" routerLinkActive="active">Thèmes</a>
+            <a mat-button routerLink="/profile" routerLinkActive="active"><mat-icon>account_circle</mat-icon></a>
+        </div>
+        <div class="menu">
+            <button mat-icon-button (click)="openSideBar()">
+                <mat-icon>menu</mat-icon>
+            </button>
+        </div>
     </div>
 </mat-toolbar>
-<div>
-    <router-outlet></router-outlet>
-</div>
+
+<mat-sidenav-container class="sidenav">
+    <mat-sidenav class="items" #sidenav mode="over" position="end">
+        <ul class="link-list">
+            <li class="link-item">
+                <a mat-button routerLink="/post-list" (click)="closeSideBar()">Articles</a>
+            </li>
+            <li class="link-item">
+                <a mat-button routerLink="/topic" (click)="closeSideBar()">Thèmes</a>
+            </li>
+        </ul>
+        <div class="account">
+            <a mat-button routerLink="/profile" (click)="closeSideBar()"><mat-icon>account_circle</mat-icon></a>
+        </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+
+</mat-sidenav-container>

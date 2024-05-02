@@ -1,13 +1,16 @@
-<div class="topics">
-    <div class="items" *ngFor="let topic of (topics$ | async)">
-        <mat-card-title>{{ topic.name }}</mat-card-title>
-        <mat-card-content>
-            <p class="item-content">{{ topic.content }}</p>
-        </mat-card-content>
-        <div class="button">
-            <button mat-raised-button color="primary" (click)="subscribe(topic.id)" [disabled]="isSubscribed(topic.id)">
-                {{ isSubscribed(topic.id) ? 'Déjà abonné' : 'S\'abonner' }}
-            </button>
+<div class="list">
+    <div class="topics">
+        <div class="items" *ngFor="let topic of (topics$ | async)">
+            <mat-card-title>{{ topic.name }}</mat-card-title>
+            <mat-card-content>
+                <p class="item-content">{{ topic.content }}</p>
+            </mat-card-content>
+            <div class="button">
+                <button mat-raised-button color="primary" (click)="subscribe(topic.id)"
+                    [disabled]="isSubscribed(topic.id)">
+                    {{ isSubscribed(topic.id) ? 'Déjà abonné' : 'S\'abonner' }}
+                </button>
+            </div>
         </div>
     </div>
 </div>
